@@ -32,3 +32,5 @@ python manage.py createsuperuser
 python manage.py runserver
 
 <video src="demo.mp4" controls width="720"></video>
+
+<video src="demo.mp4" controls width="720"></video>
