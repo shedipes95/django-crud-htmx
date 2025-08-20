@@ -1,0 +1,39 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="m-0">Products</h3>
+  <a href="{% url 'product_create' %}" class="btn btn-primary">+ New Product</a>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-md-6">
+    <input type="search" name="q" class="form-control" placeholder="Search by name or SKU"
+      value="{{ q }}"
+      hx-get="{% url 'product_list' %}"
+      hx-trigger="keyup changed delay:300ms"
+      hx-target="#results" hx-swap="innerHTML">
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>SKU</th><th>Name</th><th>Price</th><th>Stock</th><th></th>
+    </tr>
+  </thead>
+  <tbody id="results">
+    {% include 'inventory/partials/_product_rows.html' %}
+  </tbody>
+</table>
+
+<hr class="my-4">
+<h5>Create Order (quick)</h5>
+<form method="post" action="{% url 'order_create' %}" hx-post="{% url 'order_create' %}" hx-target="#order-result" class="row g-2">
+  {% csrf_token %}
+  <div class="col-md-6">{{ order_form.product }}</div>
+  <div class="col-md-3">{{ order_form.quantity }}</div>
+  <div class="col-md-3"><button class="btn btn-success w-100">Submit Order</button></div>
+</form>
+<div id="order-result" class="mt-2"></div>
+{% endblock %}

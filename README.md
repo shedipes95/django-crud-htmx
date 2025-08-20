@@ -1,0 +1,1 @@
+# Django CRUD + HTMX demo
